@@ -1,0 +1,11 @@
+export { default as MainDashboard } from './MainDashboard';
+export { default as HRDashboard } from './HRDashboard';
+export { default as SalesDashboard } from './SalesDashboard';
+export { default as TaskDashboard } from './TaskDashboard';
+export { default as LegalDashboard } from './LegalDashboard';
+export { default as DataDashboard } from './DataDashboard';
+export { default as OmnichannelDashboard } from './OmnichannelDashboard';
+export { default as CustomersDashboard } from './CustomersDashboard';
+export { default as ProductsDashboard } from './ProductsDashboard';
+export { default as AutomationDashboard } from './AutomationDashboard';
+export { default as ManagerDashboardPage } from './ManagerDashboardPage';

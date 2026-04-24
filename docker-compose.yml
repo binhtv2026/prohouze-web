@@ -1,0 +1,94 @@
+version: '3.9'
+
+# ═══════════════════════════════════════════════════════════════
+# ProHouzing CRM v3.0 - Production Docker Compose
+# Sử dụng: docker compose up -d
+# ═══════════════════════════════════════════════════════════════
+
+services:
+
+  # ─── PostgreSQL Database ────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: prohouzing_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: prohouzing
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-prohouzing_prod_2026}
+      POSTGRES_DB: prohouzing_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"  # Tắt dòng này trên production (chỉ internal)
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U prohouzing -d prohouzing_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - prohouzing_net
+
+  # ─── Backend FastAPI ─────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: prohouzing_backend
+    restart: always
+    env_file:
+      - ./backend/.env.production
+    environment:
+      POSTGRES_URL: postgresql://prohouzing:${POSTGRES_PASSWORD:-prohouzing_prod_2026}@postgres:5432/prohouzing_db
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/generated_videos:/app/generated_videos
+    networks:
+      - prohouzing_net
+
+  # ─── Frontend React (Production Build) ──────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_BACKEND_URL: https://api.prohouzing.com
+    container_name: prohouzing_frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - prohouzing_net
+
+  # ─── Nginx Reverse Proxy (Gateway) ──────────────────────────
+  nginx:
+    image: nginx:alpine
+    container_name: prohouzing_nginx
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/ssl:/etc/nginx/ssl:ro         # SSL certs từ certbot
+      - ./nginx/certbot/www:/var/www/certbot  # Certbot webroot
+    depends_on:
+      - frontend
+      - backend
+    networks:
+      - prohouzing_net
+
+volumes:
+  pgdata:
+    name: prohouzing_pgdata
+
+networks:
+  prohouzing_net:
+    name: prohouzing_network
+    driver: bridge

@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  # Cấu hình PostgreSQL Database (Dành cho bản V3.0)
+  postgres:
+    image: postgres:15-alpine
+    container_name: prohouzing_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: prohouzing
+      POSTGRES_PASSWORD: prohouzing123
+      POSTGRES_DB: prohouzing_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U prohouzing -d prohouzing_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Nếu source có sẵn 1 file MongoDB Backup, bạn có thể mount vào để migration đọc
+  # Nhờ bạn kiểm tra nếu bạn đã cài MongoDB natively rồi thì bỏ qua.
+  # mongodb:
+  #   image: mongo:6.0
+  #   container_name: prohouzing_mongo
+  #   ports:
+  #     - "27017:27017"
+
+volumes:
+  pgdata:

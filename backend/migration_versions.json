@@ -1,0 +1,22 @@
+[
+  {
+    "version": 1,
+    "started_at": "2026-03-19T11:16:46.721859Z",
+    "completed_at": "2026-03-19T11:16:46.753417Z",
+    "status": "dry_run_completed",
+    "dry_run": true,
+    "source_counts": {
+      "users": 61,
+      "customers": 13,
+      "leads": 117
+    },
+    "target_counts": {
+      "users": 61,
+      "customers": 8,
+      "leads": 117
+    },
+    "financial_summary": {},
+    "errors": [],
+    "notes": "Dry run test with existing MongoDB data"
+  }
+]

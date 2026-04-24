@@ -1,0 +1,35 @@
+{
+  "started_at": "2026-03-19T15:13:25.938350+00:00",
+  "completed_at": "2026-03-19T15:13:26.027194+00:00",
+  "entities": {
+    "users": {
+      "total_source": 61,
+      "total_migrated": 0,
+      "total_failed": 61,
+      "total_skipped": 0,
+      "errors_count": 0,
+      "duration_seconds": 0.024149
+    },
+    "customers": {
+      "total_source": 13,
+      "total_migrated": 0,
+      "total_failed": 8,
+      "total_skipped": 0,
+      "errors_count": 0,
+      "duration_seconds": 0.010562
+    },
+    "leads": {
+      "total_source": 117,
+      "total_migrated": 0,
+      "total_failed": 117,
+      "total_skipped": 0,
+      "errors_count": 0,
+      "duration_seconds": 0.047589
+    }
+  },
+  "summary": {
+    "total_migrated": 0,
+    "total_failed": 186,
+    "success_rate": 0.0
+  }
+}
