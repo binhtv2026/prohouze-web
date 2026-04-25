@@ -45,7 +45,7 @@ const projectsData = {
     area_range: '36–280', completion_date: 'Q2/2027',
     developer: {
       name: 'VCRE — Công ty CP BĐS Circle Point (Phoenix Holdings)',
-      logo: '/images/nobu/nobu-danang-07.jpg',
+      logo: null,
       description: 'VCRE (Công ty Bất động sản Bản Việt) thuộc hệ sinh thái Phoenix Holdings — tập đoàn quản lý đa danh mục hàng đầu Việt Nam. Phoenix Holdings sở hữu BVBank, Vietcap Securities, Vietcredit, 7-Eleven và McDonald\'s VN. VCRE chuyên phát triển bất động sản boutique đẳng cấp quốc tế.',
       projects: ['BVBank (Ngân hàng Bản Việt)', 'Vietcap Securities', '7-Eleven Vietnam', 'McDonald\'s Vietnam', 'Vietcredit'],
     },
@@ -454,8 +454,23 @@ const OverviewSection = ({ project }) => {
             </CardHeader>
             <CardContent>
               <div className="flex items-center gap-4 mb-4">
-                <div className="w-20 h-20 rounded-lg bg-white p-2 flex items-center justify-center">
-                  <img loading="lazy" src={project.developer.logo} alt={project.developer.name} className="w-full h-full object-contain"  />
+                <div className="w-20 h-20 rounded-lg bg-white p-2 flex items-center justify-center flex-shrink-0 border border-slate-200">
+                  {project.developer.logo ? (
+                    <img
+                      loading="lazy"
+                      src={project.developer.logo}
+                      alt={project.developer.name}
+                      className="w-full h-full object-contain"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.parentNode.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#316585;border-radius:8px;color:white;font-weight:700;font-size:18px;letter-spacing:1px">${(project.developer.name||'?').split(/[\s—-]+/).map(w=>w[0]).join('').slice(0,3).toUpperCase()}</div>`;
+                      }}
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center rounded-lg text-white font-bold text-lg tracking-wider" style={{background:'#316585'}}>
+                      {(project.developer.name||'?').split(/[\s—-]+/).map(w=>w[0]).join('').slice(0,3).toUpperCase()}
+                    </div>
+                  )}
                 </div>
                 <div>
                   <h4 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{project.developer.name}</h4>
@@ -493,16 +508,30 @@ const LocationSection = ({ project }) => {
 
         <div className="grid lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2">
-            <div className="rounded-xl overflow-hidden h-[400px]">
-              <iframe 
-                src={project.location.mapUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
+            <div className="rounded-xl overflow-hidden" style={{height:'400px', background:'#f1f5f9'}}>
+              {project.location.mapUrl ? (
+                <iframe
+                  title={`Vị trí ${project.name}`}
+                  src={project.location.mapUrl}
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, display: 'block' }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
+                />
+              ) : (
+                <a
+                  href={`https://www.google.com/maps/search/${encodeURIComponent(project.location.address + ', ' + project.location.city)}`}
+                  target="_blank" rel="noopener noreferrer"
+                  className="w-full h-full flex flex-col items-center justify-center gap-3 text-slate-500 hover:text-[#316585] transition-colors"
+                >
+                  <MapPin className="w-10 h-10" />
+                  <span className="font-medium">Xem vị trí trên Google Maps</span>
+                  <span className="text-sm text-center px-4">{project.location.address}</span>
+                </a>
+              )}
             </div>
           </div>
 
