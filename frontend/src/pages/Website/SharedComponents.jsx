@@ -63,7 +63,7 @@ export const WebsiteHeader = ({ transparent = false }) => {
                 </svg>
               </div>
               <span className="text-xl lg:text-2xl font-bold tracking-tight text-slate-800">
-                Pro<span className="text-[#316585]">Houzing</span>
+                Pro<span className="text-[#316585]">Houze</span>
               </span>
             </div>
           </Link>
@@ -120,15 +120,21 @@ export const WebsiteHeader = ({ transparent = false }) => {
 
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center gap-2">
-            <button className="p-2 text-slate-800" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            <button
+              className="p-2 text-slate-800"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              aria-label={mobileMenuOpen ? 'Đóng menu' : 'Mở menu'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" aria-hidden="true" /> : <Menu className="h-6 w-6" aria-hidden="true" />}
             </button>
           </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      <div className={`lg:hidden transition-all duration-300 ${mobileMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+      <div id="mobile-menu" className={`lg:hidden transition-all duration-300 ${mobileMenuOpen ? 'max-h-[500px] opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
         <div className="mx-4 rounded-2xl p-4 mt-2 bg-[#162d50]/95 backdrop-blur-xl border border-white/10">
           {navLinks.map((link) => (
             <Link 
@@ -192,7 +198,7 @@ export const WebsiteFooter = () => {
                   </svg>
                 </div>
                 <span className="text-2xl font-bold text-white tracking-tight">
-                  Pro<span className="text-[#4a9fc5]">Houzing</span>
+                  Pro<span className="text-[#4a9fc5]">Houze</span>
                 </span>
               </div>
             </div>
@@ -224,13 +230,21 @@ export const WebsiteFooter = () => {
             </div>
             
             <div className="flex gap-4">
-              {[FaFacebook, FaLinkedin, FaYoutube, FaInstagram].map((Icon, i) => (
+              {[
+                { Icon: FaFacebook, label: 'Facebook', href: 'https://facebook.com/prohouze' },
+                { Icon: FaLinkedin, label: 'LinkedIn', href: 'https://linkedin.com/company/prohouze' },
+                { Icon: FaYoutube, label: 'YouTube', href: 'https://youtube.com/@prohouze' },
+                { Icon: FaInstagram, label: 'Instagram', href: 'https://instagram.com/prohouze' },
+              ].map(({ Icon, label, href }) => (
                 <a 
-                  key={i} 
-                  href="#" 
+                  key={label}
+                  href={href}
+                  aria-label={label}
+                  rel="noopener noreferrer"
+                  target="_blank"
                   className="w-10 h-10 rounded-full bg-white/5 hover:bg-[#316585] flex items-center justify-center transition-colors"
                 >
-                  <Icon className="w-4 h-4" />
+                  <Icon className="w-4 h-4" aria-hidden="true" />
                 </a>
               ))}
             </div>
@@ -271,7 +285,7 @@ export const WebsiteFooter = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-[#316585]" />
-                <a href="mailto:contact@prohouzing.com" className="text-white/60 hover:text-[#316585]">contact@prohouzing.com</a>
+                <a href="mailto:contact@prohouze.com" className="text-white/60 hover:text-[#316585]">contact@prohouze.com</a>
               </li>
             </ul>
           </div>

@@ -191,7 +191,7 @@ export default function CamNangPage() {
                     className="overflow-hidden group cursor-pointer hover:shadow-xl transition-all duration-300 border-0 shadow-md"
                   >
                     <div className="relative h-64">
-                      <img
+                      <img loading="lazy"
                         src={guide.image} alt={guide.title}
                         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
@@ -309,7 +309,7 @@ export default function CamNangPage() {
                     data-testid={`guide-card-${guide.id}`}
                   >
                     <div className="relative h-48">
-                      <img
+                      <img loading="lazy"
                         src={guide.image} alt={guide.title}
                         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />

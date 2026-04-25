@@ -131,7 +131,7 @@ const HeroSection = () => {
     <section data-testid="hero-section" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Real photo background */}
       <div className="absolute inset-0 z-0">
-        <img
+        <img loading="lazy"
           src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=90"
           alt="ProHouze - Bất động sản"
           className="w-full h-full object-cover"
@@ -365,7 +365,7 @@ const TestimonialsSection = () => {
             <div className="flex flex-col md:flex-row gap-8 items-start">
               {/* Avatar */}
               <div className="flex-shrink-0">
-                <img 
+                <img loading="lazy" 
                   src={displayTestimonials[current]?.avatar || 'https://randomuser.me/api/portraits/men/32.jpg'} 
                   alt={displayTestimonials[current]?.name}
                   className="w-20 h-20 rounded-full border-4 border-slate-100 object-cover shadow-sm"
@@ -510,7 +510,7 @@ const ProjectsSection = () => {
               onClick={() => navigate(`/projects/${project.slug}`)}
             >
               <div className="relative h-52 overflow-hidden">
-                <img src={project.image} alt={project.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-600" />
+                <img loading="lazy" src={project.image} alt={project.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-600"  />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                 <div className="absolute top-3 left-3 flex gap-2">
                   {project.hot && (
@@ -849,7 +849,7 @@ const PartnersSection = () => {
               >
                 {partner.logo ? (
                   <>
-                    <img 
+                    <img loading="lazy" 
                       src={partner.logo} 
                       alt={partner.name}
                       className="max-h-12 max-w-[140px] w-auto object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 mix-blend-multiply"
@@ -1026,7 +1026,7 @@ const NewsSection = () => {
             {featured && (
               <div className="lg:col-span-2 group cursor-pointer" onClick={() => navigate(`/news/${featured.id}`)}>
                 <div className="overflow-hidden rounded-2xl mb-6 shadow-sm border border-slate-100 relative">
-                  <img src={featured.image} alt={featured.title} className="w-full aspect-[16/9] object-cover group-hover:scale-105 transition-transform duration-700" />
+                  <img loading="lazy" src={featured.image} alt={featured.title} className="w-full aspect-[16/9] object-cover group-hover:scale-105 transition-transform duration-700"  />
                   {featured.isAI && (
                     <span className="absolute top-3 left-3 bg-violet-600/90 text-white text-[10px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
                       ✨ AI · Đã duyệt
@@ -1056,7 +1056,7 @@ const NewsSection = () => {
                 <div key={item.id} className="py-4 group cursor-pointer hover:bg-slate-50 transition-colors -mx-3 px-3 rounded-xl" onClick={() => navigate(`/news/${item.id}`)}>
                   <div className="flex gap-3 items-start">
                     {item.image && (
-                      <img src={item.image} alt={item.title} className="w-16 h-12 object-cover rounded-lg flex-shrink-0" />
+                      <img loading="lazy" src={item.image} alt={item.title} className="w-16 h-12 object-cover rounded-lg flex-shrink-0"  />
                     )}
                     <div className="flex-1 min-w-0">
                       <h4 className="text-sm font-bold text-slate-900 leading-snug mb-1.5 group-hover:text-[#316585] transition-colors line-clamp-2">

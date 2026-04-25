@@ -92,7 +92,7 @@ export function AboutPage() {
               </Button>
             </div>
             <div className="relative">
-              <img
+              <img loading="lazy"
                 src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800"
                 alt="ProHouze Office"
                 className="rounded-2xl shadow-xl w-full h-[350px] lg:h-[450px] object-cover"
@@ -173,7 +173,7 @@ export function AboutPage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {leaders.map((leader, i) => (
               <div key={i} className="text-center" data-testid={`leader-${i}`}>
-                <img
+                <img loading="lazy"
                   src={leader.image}
                   alt={leader.name}
                   className="w-28 h-28 lg:w-36 lg:h-36 rounded-full mx-auto object-cover shadow-lg mb-4"

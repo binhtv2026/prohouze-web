@@ -139,7 +139,7 @@ export default function NewsPage() {
               >
                 <div className="flex flex-col md:flex-row">
                   <div className="md:w-2/5 h-48 md:h-auto overflow-hidden">
-                    <img
+                    <img loading="lazy"
                       src={item.image}
                       alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -209,7 +209,7 @@ export default function NewsPage() {
                 className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group border-0 shadow-sm"
               >
                 <div className="h-44 lg:h-48 overflow-hidden">
-                  <img
+                  <img loading="lazy"
                     src={item.image}
                     alt={item.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"

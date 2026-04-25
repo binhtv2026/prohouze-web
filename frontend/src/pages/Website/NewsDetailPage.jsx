@@ -147,7 +147,7 @@ export default function NewsDetailPage() {
       {/* Hero Image */}
       <section className="relative h-[40vh] md:h-[50vh] bg-slate-900">
         {article.image && (
-          <img 
+          <img loading="lazy" 
             src={article.image} 
             alt={article.title}
             className="absolute inset-0 w-full h-full object-cover opacity-50"
@@ -245,7 +245,7 @@ export default function NewsDetailPage() {
                         className="flex gap-3 group"
                       >
                         {news.image && (
-                          <img 
+                          <img loading="lazy" 
                             src={news.image} 
                             alt={news.title}
                             className="w-20 h-14 object-cover rounded flex-shrink-0"

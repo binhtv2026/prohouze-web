@@ -626,7 +626,7 @@ export default function ProjectsListPage() {
                   onClick={() => navigate(`/projects/${project.slug || project.id}`)}
                 >
                   <div className="relative h-48 lg:h-52 overflow-hidden">
-                    <img
+                    <img loading="lazy"
                       src={project.image}
                       alt={project.name}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
@@ -675,7 +675,7 @@ export default function ProjectsListPage() {
                 >
                   <div className="flex flex-col sm:flex-row">
                     <div className="relative w-full sm:w-72 h-48 sm:h-auto flex-shrink-0">
-                      <img
+                      <img loading="lazy"
                         src={project.image}
                         alt={project.name}
                         className="w-full h-full object-cover"

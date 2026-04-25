@@ -398,7 +398,7 @@ const OverviewSection = ({ project }) => {
             <CardContent>
               <div className="flex items-center gap-4 mb-4">
                 <div className="w-20 h-20 rounded-lg bg-white p-2 flex items-center justify-center">
-                  <img src={project.developer.logo} alt={project.developer.name} className="w-full h-full object-contain" />
+                  <img loading="lazy" src={project.developer.logo} alt={project.developer.name} className="w-full h-full object-contain"  />
                 </div>
                 <div>
                   <h4 className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{project.developer.name}</h4>
@@ -509,7 +509,7 @@ const VirtualTourSection = ({ project }) => {
                   />
                 ) : (
                   <>
-                    <img 
+                    <img loading="lazy" 
                       src={project.virtualTour.thumbnail || project.images[0]} 
                       alt="Virtual Tour" 
                       className="w-full h-full object-cover"
@@ -552,7 +552,7 @@ const VirtualTourSection = ({ project }) => {
                   <PannellumViewer images={project.view360.images} />
                 ) : (
                   <>
-                    <img 
+                    <img loading="lazy" 
                       src={project.view360.images[0]?.url || project.images[1]} 
                       alt="360 View" 
                       className="w-full h-full object-cover"
@@ -591,7 +591,7 @@ const PannellumViewer = ({ images }) => {
 
   return (
     <div className="relative w-full h-full">
-      <img 
+      <img loading="lazy" 
         src={currentImage?.url}
         alt={currentImage?.name}
         className="w-full h-full object-cover cursor-move"
@@ -638,7 +638,7 @@ const UnitTypesSection = ({ project }) => {
             <Card key={i} className={`overflow-hidden hover:shadow-lg transition-shadow ${isDark ? 'bg-slate-900 border-slate-700' : ''}`}>
               {unit.image && (
                 <div className="h-40 overflow-hidden">
-                  <img src={unit.image} alt={unit.name} className="w-full h-full object-cover hover:scale-105 transition-transform" />
+                  <img loading="lazy" src={unit.image} alt={unit.name} className="w-full h-full object-cover hover:scale-105 transition-transform"  />
                 </div>
               )}
               <CardContent className="p-4">
@@ -819,7 +819,7 @@ const GallerySection = ({ project }) => {
               className="aspect-square rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition-opacity"
               onClick={() => setSelectedImage(img)}
             >
-              <img src={img} alt={`${project.name} ${i + 1}`} className="w-full h-full object-cover" />
+              <img loading="lazy" src={img} alt={`${project.name} ${i + 1}`} className="w-full h-full object-cover"  />
             </div>
           ))}
         </div>
@@ -828,7 +828,7 @@ const GallerySection = ({ project }) => {
       {/* Lightbox */}
       <Dialog open={!!selectedImage} onOpenChange={() => setSelectedImage(null)}>
         <DialogContent className="max-w-5xl p-0 bg-black border-0">
-          <img src={selectedImage} alt="Gallery" className="w-full h-auto" />
+          <img loading="lazy" src={selectedImage} alt="Gallery" className="w-full h-auto"  />
         </DialogContent>
       </Dialog>
     </section>
@@ -910,7 +910,7 @@ const ProgressSection = ({ project }) => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {project.progress_images.slice(0, 4).map((img, index) => (
                 <div key={index} className="relative aspect-video rounded-xl overflow-hidden">
-                  <img src={img} alt={`Tiến độ ${index + 1}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-300" />
+                  <img loading="lazy" src={img} alt={`Tiến độ ${index + 1}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"  />
                 </div>
               ))}
             </div>

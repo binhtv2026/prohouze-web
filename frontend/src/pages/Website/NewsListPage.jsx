@@ -134,7 +134,7 @@ export default function NewsListPage() {
                   onClick={() => navigate(`/news/${item.id}`)}
                 >
                   <div className="relative h-64">
-                    <img 
+                    <img loading="lazy" 
                       src={item.image} 
                       alt={item.title}
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -214,7 +214,7 @@ export default function NewsListPage() {
                   data-testid={`news-card-${item.id}`}
                 >
                   <div className="relative h-48">
-                    <img 
+                    <img loading="lazy" 
                       src={item.image} 
                       alt={item.title}
                       className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
