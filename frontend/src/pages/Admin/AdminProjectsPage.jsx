@@ -474,7 +474,11 @@ function CreateProjectDialog({ open, onOpenChange, onSuccess }) {
     completion_date: '',
     is_hot: false,
     highlights: [''],
-    images: ['']
+    images: [''],
+    legal: [],
+    payment_schedule: [],
+    unit_types: [],
+    contact: { hotline: '', email: '' }
   });
   const [loading, setLoading] = useState(false);
 
@@ -494,7 +498,11 @@ function CreateProjectDialog({ open, onOpenChange, onSuccess }) {
         units_total: parseInt(formData.units_total) || 0,
         units_available: parseInt(formData.units_available) || 0,
         highlights: formData.highlights.filter(h => h.trim()),
-        images: formData.images.filter(i => i.trim())
+        images: formData.images.filter(i => i.trim()),
+        legal: formData.legal || [],
+        payment_schedule: formData.payment_schedule || [],
+        unit_types: formData.unit_types || [],
+        contact: formData.contact || {}
       };
 
       await api.post('/admin/projects', payload);
@@ -545,10 +553,12 @@ function CreateProjectDialog({ open, onOpenChange, onSuccess }) {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <Tabs defaultValue="basic">
-            <TabsList className="grid grid-cols-4 w-full">
+            <TabsList className="grid grid-cols-6 w-full">
               <TabsTrigger value="basic">Cơ bản</TabsTrigger>
               <TabsTrigger value="location">Vị trí</TabsTrigger>
               <TabsTrigger value="details">Chi tiết</TabsTrigger>
+              <TabsTrigger value="units">Loại căn</TabsTrigger>
+              <TabsTrigger value="legal">Pháp lý & TT</TabsTrigger>
               <TabsTrigger value="media">Media</TabsTrigger>
             </TabsList>
 
@@ -742,6 +752,92 @@ function CreateProjectDialog({ open, onOpenChange, onSuccess }) {
                       placeholder={`Điểm nổi bật ${idx + 1}`}
                     />
                   ))}
+                </div>
+              </div>
+            </TabsContent>
+
+            {/* === Loại căn tab === */}
+            <TabsContent value="units" className="space-y-4 mt-4">
+              <div className="flex items-center justify-between mb-2">
+                <Label className="font-semibold">Loại căn / Sản phẩm</Label>
+                <Button type="button" variant="outline" size="sm"
+                  onClick={() => setFormData(prev => ({ ...prev, unit_types: [...prev.unit_types, { name: '', area: '', bedrooms: 1, bathrooms: 1, price_from: 0 }] }))}>
+                  <Plus className="w-4 h-4 mr-1" /> Thêm loại căn
+                </Button>
+              </div>
+              {formData.unit_types.length === 0 && (
+                <p className="text-sm text-slate-400 text-center py-4">Chưa có loại căn. Nhấn "Thêm" để thêm.</p>
+              )}
+              {formData.unit_types.map((ut, idx) => (
+                <div key={idx} className="border rounded-lg p-4 space-y-3 relative">
+                  <Button type="button" variant="ghost" size="icon" className="absolute top-2 right-2 h-6 w-6 text-red-500"
+                    onClick={() => setFormData(prev => ({ ...prev, unit_types: prev.unit_types.filter((_, i) => i !== idx) }))}>
+                    <X className="w-4 h-4" />
+                  </Button>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div><Label>Tên loại căn</Label><Input value={ut.name} placeholder="VD: 2 Phòng ngủ" onChange={e => { const u=[...formData.unit_types]; u[idx]={...u[idx],name:e.target.value}; setFormData(p=>({...p,unit_types:u})); }} /></div>
+                    <div><Label>Diện tích</Label><Input value={ut.area} placeholder="68–80 m²" onChange={e => { const u=[...formData.unit_types]; u[idx]={...u[idx],area:e.target.value}; setFormData(p=>({...p,unit_types:u})); }} /></div>
+                    <div><Label>Số PN</Label><Input type="number" value={ut.bedrooms} onChange={e => { const u=[...formData.unit_types]; u[idx]={...u[idx],bedrooms:parseInt(e.target.value)||0}; setFormData(p=>({...p,unit_types:u})); }} /></div>
+                    <div><Label>Giá từ (VND)</Label><Input type="number" value={ut.price_from} placeholder="2500000000" onChange={e => { const u=[...formData.unit_types]; u[idx]={...u[idx],price_from:parseFloat(e.target.value)||0}; setFormData(p=>({...p,unit_types:u})); }} /></div>
+                  </div>
+                </div>
+              ))}
+            </TabsContent>
+
+            {/* === Pháp lý & Thanh toán tab === */}
+            <TabsContent value="legal" className="space-y-6 mt-4">
+              {/* Legal docs */}
+              <div>
+                <div className="flex items-center justify-between mb-2">
+                  <Label className="font-semibold">Hồ sơ pháp lý</Label>
+                  <Button type="button" variant="outline" size="sm"
+                    onClick={() => setFormData(prev => ({ ...prev, legal: [...prev.legal, { name: '', status: 'approved', number: '', date: '' }] }))}>
+                    <Plus className="w-4 h-4 mr-1" /> Thêm
+                  </Button>
+                </div>
+                {formData.legal.length === 0 && <p className="text-sm text-slate-400 text-center py-2">Chưa có hồ sơ. Nhấn "Thêm" để thêm.</p>}
+                {formData.legal.map((item, idx) => (
+                  <div key={idx} className="border rounded-lg p-3 mb-2 grid grid-cols-2 gap-2 relative">
+                    <Button type="button" variant="ghost" size="icon" className="absolute top-1 right-1 h-5 w-5 text-red-500"
+                      onClick={() => setFormData(prev => ({ ...prev, legal: prev.legal.filter((_,i)=>i!==idx) }))}>
+                      <X className="w-3 h-3" />
+                    </Button>
+                    <div className="col-span-2"><Label>Tên hồ sơ</Label><Input value={item.name} placeholder="VD: Giấy chứng nhận QSDĐ" onChange={e=>{const l=[...formData.legal];l[idx]={...l[idx],name:e.target.value};setFormData(p=>({...p,legal:l}));}} /></div>
+                    <div><Label>Số / Mã</Label><Input value={item.number} placeholder="GCN số 789/..." onChange={e=>{const l=[...formData.legal];l[idx]={...l[idx],number:e.target.value};setFormData(p=>({...p,legal:l}));}} /></div>
+                    <div><Label>Ngày</Label><Input value={item.date} placeholder="2024" onChange={e=>{const l=[...formData.legal];l[idx]={...l[idx],date:e.target.value};setFormData(p=>({...p,legal:l}));}} /></div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Payment schedule */}
+              <div className="border-t pt-4">
+                <div className="flex items-center justify-between mb-2">
+                  <Label className="font-semibold">Lịch thanh toán (CSBH)</Label>
+                  <Button type="button" variant="outline" size="sm"
+                    onClick={() => setFormData(prev => ({ ...prev, payment_schedule: [...prev.payment_schedule, { milestone: '', percentage: 0, description: '' }] }))}>
+                    <Plus className="w-4 h-4 mr-1" /> Thêm đợt
+                  </Button>
+                </div>
+                {formData.payment_schedule.length === 0 && <p className="text-sm text-slate-400 text-center py-2">Chưa có lịch TT. Nhấn "Thêm" để thêm đợt.</p>}
+                {formData.payment_schedule.map((item, idx) => (
+                  <div key={idx} className="border rounded-lg p-3 mb-2 grid grid-cols-3 gap-2 relative">
+                    <Button type="button" variant="ghost" size="icon" className="absolute top-1 right-1 h-5 w-5 text-red-500"
+                      onClick={() => setFormData(prev => ({ ...prev, payment_schedule: prev.payment_schedule.filter((_,i)=>i!==idx) }))}>
+                      <X className="w-3 h-3" />
+                    </Button>
+                    <div><Label>Đợt/Mốc</Label><Input value={item.milestone} placeholder="Ký HĐMB" onChange={e=>{const ps=[...formData.payment_schedule];ps[idx]={...ps[idx],milestone:e.target.value};setFormData(p=>({...p,payment_schedule:ps}));}} /></div>
+                    <div><Label>% TT</Label><Input type="number" value={item.percentage} placeholder="30" onChange={e=>{const ps=[...formData.payment_schedule];ps[idx]={...ps[idx],percentage:parseInt(e.target.value)||0};setFormData(p=>({...p,payment_schedule:ps}));}} /></div>
+                    <div><Label>Mô tả</Label><Input value={item.description} placeholder="Sau 30 ngày ký..." onChange={e=>{const ps=[...formData.payment_schedule];ps[idx]={...ps[idx],description:e.target.value};setFormData(p=>({...p,payment_schedule:ps}));}} /></div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Contact */}
+              <div className="border-t pt-4">
+                <Label className="font-semibold block mb-2">Thông tin liên hệ</Label>
+                <div className="grid grid-cols-2 gap-3">
+                  <div><Label>Hotline</Label><Input value={formData.contact?.hotline||''} placeholder="1800 xxxx" onChange={e=>setFormData(p=>({...p,contact:{...p.contact,hotline:e.target.value}}))} /></div>
+                  <div><Label>Email</Label><Input value={formData.contact?.email||''} placeholder="info@..." onChange={e=>setFormData(p=>({...p,contact:{...p.contact,email:e.target.value}}))} /></div>
                 </div>
               </div>
             </TabsContent>
