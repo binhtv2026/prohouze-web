@@ -217,8 +217,9 @@ const getPropertyTypeLabel = (type) => {
     'land': 'Đất nền',
     'condotel': 'Condotel',
     'officetel': 'Officetel',
+    'mixed': 'Đô thị tổng hợp',
   };
-  return typeMap[type] || 'Căn hộ';
+  return typeMap[type] || 'Bất động sản';
 };
 
 // Get status label
@@ -260,7 +261,7 @@ const transformApiProject = (p) => ({
   totalUnits: p.units_total || 0,
   area: p.area_range || '',
   areaRange: getAreaRange(p.area_range),
-  developer: p.developer?.name || '',
+  developer: typeof p.developer === 'string' ? p.developer : (p.developer?.name || ''),
   completionDate: p.completion_date || '',
   fromDB: true
 });

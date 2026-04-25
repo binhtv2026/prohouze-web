@@ -15,10 +15,12 @@ import { toast } from 'sonner';
 import { WebsiteHeader, WebsiteFooter } from './SharedComponents';
 import { useTheme } from '@/contexts/ThemeContext';
 import AIChatWidget from '@/components/AIChatWidget';
+import { SUN_GROUP_PROJECTS } from '@/data/sunGroupProjects';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 // Chỉ gọi API nếu đang dùng HTTPS (tránh Mixed Content errors trên production)
 const API_AVAILABLE = API_URL && API_URL.startsWith('https');
+
 
 // ===================== ANIMATED COUNTER =====================
 const AnimatedCounter = ({ target, suffix = '', prefix = '' }) => {
@@ -446,10 +448,22 @@ const ProjectsSection = () => {
   const [loading, setLoading] = useState(true);
   
   // Sample projects as fallback
-  const sampleProjects = useMemo(() => [
-    { name: 'Nobu Residences Danang', slug: 'nobu-danang', location: 'Sơn Trà, Đà Nẵng', price: 'Từ 3.8 triệu/đêm', remaining: '264 căn', image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800', hot: true },
-    { name: 'Sun Symphony Residence', slug: 'sun-symphony', location: 'Sơn Trà, Đà Nẵng', price: 'Liên hệ', remaining: '1373 căn', image: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800', hot: true },
-  ], []);
+  const sampleProjects = useMemo(() =>
+    SUN_GROUP_PROJECTS
+      .filter(p => p.is_hot)
+      .slice(0, 4)
+      .map(p => ({
+        name: p.name,
+        slug: p.slug,
+        location: `${p.location.district || ''}, ${p.location.city}`,
+        price: p.price_from ? `Từ ${(p.price_from / 1000000000).toFixed(1)} tỷ` : 'Liên hệ',
+        remaining: p.units_available ? `${p.units_available} căn` : p.area_ha ? `${p.area_ha} ha` : '',
+        image: p.images?.[0] || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800',
+        hot: p.is_hot || false,
+        developer: p.developer,
+        status: p.status,
+      }))
+  , []);
 
   const fetchProjects = useCallback(async () => {
       if (!API_AVAILABLE) { setProjects(sampleProjects); setLoading(false); return; }
