@@ -273,7 +273,6 @@ export const SUN_GROUP_STATS = {
   developer: 'Sun Group',
 };
 
-export default SUN_GROUP_PROJECTS;
 
 // ===== BỔ SUNG 20 DỰ ÁN MỚI TỪ SITEMAP SUNGROUP.COM.VN =====
 export const SUN_GROUP_EXTRA = [
@@ -531,7 +530,4 @@ export const SUN_GROUP_EXTRA = [
 ];
 
 // Merge tất cả projects
-const ALL_SUN_GROUP_PROJECTS = [...SUN_GROUP_PROJECTS, ...SUN_GROUP_EXTRA];
-
-export { ALL_SUN_GROUP_PROJECTS };
-export default ALL_SUN_GROUP_PROJECTS;
+export const ALL_SUN_GROUP_PROJECTS = [...SUN_GROUP_PROJECTS, ...SUN_GROUP_EXTRA];
