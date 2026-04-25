@@ -1240,9 +1240,16 @@ export default function ProjectLandingPage() {
       setLoading(true);
       // Skip HTTP API on HTTPS site to avoid Mixed Content errors
       if (!API_AVAILABLE) {
+        // Check rich projectsData FIRST (Nobu, Sun Symphony have full data)
+        if (projectsData[projectId]) {
+          setProject(projectsData[projectId]);
+          setLoading(false); return;
+        }
+        // Then search SUN_GROUP_PROJECTS by slug or id
         const sg = SUN_GROUP_PROJECTS.find(p => p.slug === projectId || p.id === projectId);
         if (sg) { setProject(buildSGProject(sg)); setLoading(false); return; }
-        setProject(projectsData[projectId] || projectsData['1']);
+        // Last resort fallback
+        setProject(projectsData['nobu-danang']);
         setLoading(false); return;
       }
       try {
