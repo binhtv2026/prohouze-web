@@ -131,10 +131,12 @@ const HeroSection = () => {
     <section data-testid="hero-section" className="relative min-h-screen flex items-center overflow-hidden">
       {/* Real photo background */}
       <div className="absolute inset-0 z-0">
-        <img loading="lazy"
+        <img
           src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1920&q=90"
           alt="ProHouze - Bất động sản"
           className="w-full h-full object-cover"
+          fetchpriority="high"
+          decoding="sync"
         />
         <div className="absolute inset-0 bg-white/[0.45] backdrop-blur-[1px]" />
         <div className="absolute inset-0 bg-gradient-to-r from-slate-50/60 via-white/30 to-transparent" />
