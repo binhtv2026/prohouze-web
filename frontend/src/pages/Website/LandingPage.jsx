@@ -17,6 +17,8 @@ import { useTheme } from '@/contexts/ThemeContext';
 import AIChatWidget from '@/components/AIChatWidget';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
+// Chỉ gọi API nếu đang dùng HTTPS (tránh Mixed Content errors trên production)
+const API_AVAILABLE = API_URL && API_URL.startsWith('https');
 
 // ===================== ANIMATED COUNTER =====================
 const AnimatedCounter = ({ target, suffix = '', prefix = '' }) => {
@@ -275,8 +277,9 @@ const TestimonialsSection = () => {
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [testimonials, setTestimonials] = useState([]);
 
+  // Dùng static testimonials — không fetch API để tránh Mixed Content errors
   useEffect(() => {
-    // Fetch testimonials from API
+    if (!API_AVAILABLE) return;
     const fetchTestimonials = async () => {
       try {
         const res = await fetch(`${API_URL}/api/website/testimonials`);
@@ -284,9 +287,7 @@ const TestimonialsSection = () => {
           const data = await res.json();
           if (data.length > 0) setTestimonials(data);
         }
-      } catch {
-        // silently use default testimonials
-      }
+      } catch { /* silent */ }
     };
     fetchTestimonials();
   }, []);
@@ -451,6 +452,7 @@ const ProjectsSection = () => {
   ], []);
 
   const fetchProjects = useCallback(async () => {
+      if (!API_AVAILABLE) { setProjects(sampleProjects); setLoading(false); return; }
       try {
         const response = await fetch(`${API_URL}/api/website/projects-list?is_hot=true&limit=4`);
         if (response.ok) {
@@ -805,6 +807,7 @@ const PartnersSection = () => {
   
   useEffect(() => {
     const fetchPartners = async () => {
+      if (!API_AVAILABLE) return;
       try {
         const res = await fetch(`${API_URL}/api/website/partners`);
         if (res.ok) {
@@ -942,6 +945,7 @@ const NewsSection = () => {
   
   useEffect(() => {
     const fetchNews = async () => {
+      if (!API_AVAILABLE) return;
       try {
         const res = await fetch(`${API_URL}/api/website/news?limit=10&status=published`);
         if (res.ok) {

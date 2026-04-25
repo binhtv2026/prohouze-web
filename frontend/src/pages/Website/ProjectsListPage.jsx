@@ -26,6 +26,7 @@ import { WebsiteHeader, WebsiteFooter } from './SharedComponents';
 import { SUN_GROUP_PROJECTS } from '@/data/sunGroupProjects';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
+const API_AVAILABLE = API_URL && API_URL.startsWith('https');
 
 // ===== PHÂN LOẠI BẤT ĐỘNG SẢN THEO CHUẨN VIỆT NAM =====
 // Theo Luật Kinh doanh Bất động sản 2024 và thực tế thị trường
@@ -325,7 +326,8 @@ export default function ProjectsListPage() {
     const fetchProjects = async () => {
       setLoading(true);
       try {
-        const response = await fetch(`${API_URL}/api/website/projects-list`);
+        if (!API_AVAILABLE) { setProjects(MOCK_PROJECTS.map(transformApiProject)); setLoading(false); return; }
+      const response = await fetch(`${API_URL}/api/website/projects-list`);
         if (response.ok) {
           const dbProjects = await response.json();
           if (dbProjects && dbProjects.length > 0) {

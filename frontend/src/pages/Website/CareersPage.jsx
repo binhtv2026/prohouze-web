@@ -34,6 +34,7 @@ import { WebsiteHeader, WebsiteFooter } from './SharedComponents';
 import { toast } from 'sonner';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
+const API_AVAILABLE = API_URL && API_URL.startsWith('https');
 
 export default function CareersPage() {
   const navigate = useNavigate();
@@ -76,6 +77,7 @@ export default function CareersPage() {
 
   const fetchJobs = async () => {
     try {
+      if (!API_AVAILABLE) return;
       const res = await fetch(`${API_URL}/api/website/careers`);
       if (res.ok) {
         const data = await res.json();

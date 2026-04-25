@@ -10,6 +10,7 @@ import {
 import { WebsiteHeader, WebsiteFooter } from './SharedComponents';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
+const API_AVAILABLE = API_URL && API_URL.startsWith('https');
 
 const MOCK_NEWS = [
   {
@@ -80,6 +81,7 @@ export default function NewsListPage() {
 
   const fetchNews = async () => {
     try {
+      if (!API_AVAILABLE) return;
       const res = await fetch(`${API_URL}/api/website/news`, { signal: AbortSignal.timeout(5000) });
       if (res.ok) {
         const data = await res.json();
