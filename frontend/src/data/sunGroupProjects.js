@@ -274,8 +274,14 @@ export const SUN_GROUP_STATS = {
 };
 
 
-// ===== BỔ SUNG 20 DỰ ÁN MỚI TỪ SITEMAP SUNGROUP.COM.VN =====
+// ===== BỔ SUNG DỰ ÁN MỚI TỪ SITEMAP SUNGROUP.COM.VN =====
 export const SUN_GROUP_EXTRA = [
+  {
+    id: 'sg-sun-costa',
+    slug: 'sun-costa-residence-8262',
+    name: 'Sun Costa Residence',
+    developer: 'Sun Group', type: 'apartment', status: 'coming_soon', is_hot: true,
+    location: { city: 'Đà Nẵng', district: 'Ngũ Hành Sơn', address: 'Ngũ Hành Sơn, Đà Nẵng' },
     description: 'Sun Costa Residence – tổ hợp căn hộ mặt biển cao cấp, kết nối Đà Nẵng – Hội An, thiết kế hướng biển 100%.',
     price_from: 4000000000, area_range: '60–140 m²', completion_date: 'Q3/2027',
     highlights: ['100% view biển', 'Kết nối Hội An', 'Thiết kế cao cấp'],
