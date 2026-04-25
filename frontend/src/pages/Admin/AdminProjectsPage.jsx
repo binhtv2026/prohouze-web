@@ -13,7 +13,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, Dialog
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useAuth } from '@/contexts/AuthContext';
-import { api } from '@/lib/api';
+import api from '@/lib/api';
+import { SUN_GROUP_PROJECTS, SUN_GROUP_STATS } from '@/data/sunGroupProjects';
 import { toast } from 'sonner';
 import {
   Building2, MapPin, DollarSign, Plus, Pencil, Trash2, Eye, ExternalLink,
@@ -46,39 +47,9 @@ const statusLabels = {
   sold_out: 'Đã bán hết'
 };
 
-const DEMO_PROJECTS = [
-  {
-    id: 'project-1',
-    name: 'Nobu Residences Danang',
-    location: 'Sơn Trà, Đà Nẵng',
-    status: 'opening',
-    type: 'apartment',
-    is_hot: true,
-    price_list_enabled: true,
-    developer: 'VBR',
-    min_price: 3800000000,
-    images: ['https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800'],
-  },
-  {
-    id: 'project-2',
-    name: 'Sun Symphony Residence',
-    location: 'Sơn Trà, Đà Nẵng',
-    status: 'opening',
-    type: 'apartment',
-    is_hot: true,
-    price_list_enabled: true,
-    developer: 'Sun Group',
-    min_price: 4500000000,
-    images: ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800'],
-  },
-];
+const DEMO_PROJECTS = SUN_GROUP_PROJECTS;
+const DEMO_PROJECT_STATS = SUN_GROUP_STATS;
 
-const DEMO_PROJECT_STATS = {
-  total: 3,
-  opening: 2,
-  coming_soon: 1,
-  hot_projects: 2,
-};
 
 export default function AdminProjectsPage() {
   const navigate = useNavigate();
@@ -104,8 +75,7 @@ export default function AdminProjectsPage() {
       const response = await api.get(`/admin/projects?${params.toString()}`);
       const items = Array.isArray(response.data) && response.data.length > 0 ? response.data : DEMO_PROJECTS;
       setProjects(items);
-    } catch (error) {
-      console.error('Load projects error:', error);
+    } catch {
       setProjects(DEMO_PROJECTS);
     } finally {
       setLoading(false);
@@ -116,8 +86,7 @@ export default function AdminProjectsPage() {
     try {
       const response = await api.get('/admin/projects/stats/overview');
       setStats(response.data || DEMO_PROJECT_STATS);
-    } catch (error) {
-      console.error('Load stats error:', error);
+    } catch {
       setStats(DEMO_PROJECT_STATS);
     }
   }, []);

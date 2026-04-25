@@ -23,6 +23,7 @@ import {
   Warehouse,
 } from 'lucide-react';
 import { WebsiteHeader, WebsiteFooter } from './SharedComponents';
+import { SUN_GROUP_PROJECTS } from '@/data/sunGroupProjects';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -263,38 +264,8 @@ const transformApiProject = (p) => ({
   fromDB: true
 });
 
-const MOCK_PROJECTS = [
-  {
-    id: 1,
-    slug: 'nobu-danang',
-    name: 'Nobu Residences Danang',
-    location: { city: 'Đà Nẵng', district: 'Sơn Trà' },
-    type: 'apartment',
-    price_from: 0,
-    images: ['https://images.unsplash.com/photo-1582268611958-ebfd161ef9cf?w=800'],
-    status: 'opening',
-    is_hot: true,
-    units_available: 264,
-    units_total: 264,
-    area_range: '36 – 280 m²',
-    developer: { name: 'VCRE (Phoenix Holdings)' }
-  },
-  {
-    id: 2,
-    slug: 'sun-symphony',
-    name: 'Sun Symphony Residence',
-    location: { city: 'Đà Nẵng', district: 'Sơn Trà' },
-    type: 'apartment',
-    price_from: 0,
-    images: ['https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800'],
-    status: 'opening',
-    is_hot: true,
-    units_available: 1373,
-    units_total: 1373,
-    area_range: '35 – 150 m²',
-    developer: { name: 'S-Realty Đà Nẵng (Sun Group)' }
-  },
-];
+const MOCK_PROJECTS = SUN_GROUP_PROJECTS;
+
 
 
 
