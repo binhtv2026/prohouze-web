@@ -293,9 +293,122 @@ const projectsData = {
       '/images/sun-symphony/sun-symphony-03.jpg',
     ],
   },
-  // Legacy slugs — redirect về NOBU
+  // ─── SUN PLAZA CẦU MÂY ─────────────────────────────────────────────────────
+  'sun-plaza-cau-may': {
+    id: 'sun-plaza-cau-may',
+    name: 'Sun Plaza Cầu Mây',
+    slug: 'sun-plaza-cau-may',
+    slogan: 'Cánh cửa đưa bạn chạm đến chân mây tại độ cao 1.600m trên Sa Pa',
+    location: {
+      address: 'Đường Cầu Mây, thị trấn Sa Pa, tỉnh Lào Cai',
+      district: 'Thị trấn Sa Pa',
+      city: 'Lào Cai',
+      mapUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3726.!2d103.8432!3d22.3364!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x36cd41bd3000001%3A0x1!2zU3VuIFBsYXphIEPhuqd1IE3Donk!5e0!3m2!1svi!2svn!4v1714042800001',
+      nearbyPlaces: [
+        { name: 'Quảng trường Sa Pa — trung tâm thị trấn', distance: 'Trực diện', icon: Building2 },
+        { name: 'Nhà thờ Đá Sa Pa (1895)', distance: '2 phút', icon: Building2 },
+        { name: 'Sun World Fansipan Legend (Cáp treo)', distance: '5 phút', icon: Car },
+        { name: 'Bản Cát Cát (làng văn hóa dân tộc)', distance: '10 phút', icon: TreePine },
+        { name: 'Đỉnh Fansipan — Nóc nhà Đông Dương', distance: '15 phút', icon: TreePine },
+        { name: 'Sân golf Sun Valley Sa Pa', distance: '8 phút', icon: TreePine },
+      ]
+    },
+    type: 'mixed',
+    price_from: 25000000000,
+    price_to: 45000000000,
+    status: 'secondary',
+    developer: {
+      name: 'Công ty TNHH Đầu tư Tây Bắc (Sun Group)',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Sun_Group_logo.svg/200px-Sun_Group_logo.svg.png',
+      description: 'Công ty TNHH Đầu tư Tây Bắc là thành viên của Tập đoàn Sun Group — chủ đầu tư chiến lược tại Sa Pa với hệ sinh thái nghỉ dưỡng núi rừng đẳng cấp: Sun World Fansipan Legend, Sun Valley Golf, Sun Onsen Village và Sun Premier Village.',
+      projects: ['Sun World Fansipan Legend', 'Sun Onsen Village Sa Pa', 'Sun Valley Golf Sa Pa', 'Sun Premier Village Sa Pa', 'Sun Group – Top 5 tập đoàn tư nhân lớn nhất VN']
+    },
+    description: 'Sun Plaza Cầu Mây là tổ hợp Shophouse và Mini Hotel mặt tiền đường Cầu Mây — tuyến phố đi bộ sầm uất bậc nhất Sa Pa, tọa lạc tại độ cao 1.600m so với mực nước biển. Kiến trúc Đông Dương (Indochine) đặc trưng với 4 phân khu (A, B, C, D) gồm 23 Shophouse sở hữu lâu dài và 18 Mini Hotel sở hữu 50 năm. Dự án đã hoàn thiện và bàn giao (2020) — hiện giao dịch trên thị trường thứ cấp.',
+    highlights: [
+      'Mặt tiền đường Cầu Mây — tuyến phố đi bộ số 1 Sa Pa',
+      'Độ cao 1.600m — tầm nhìn thung lũng Mường Hoa, mây núi bốn mùa',
+      'Shophouse sở hữu lâu dài (Phân khu A & B — 23 căn)',
+      'Kiến trúc Đông Dương (Indochine) — bảo tồn bản sắc Sapa',
+      'Dự án đã hoàn thiện & bàn giao — pháp lý sẵn sàng chuyển nhượng',
+      'Nằm trong hệ sinh thái Sun Group Sa Pa — Sun World Fansipan, Sun Onsen',
+      'Tiềm năng khai thác du lịch cao: Sa Pa đón 3 triệu lượt khách/năm',
+      'Giá chuyển nhượng: 270–355 triệu/m²',
+    ],
+    legal: [
+      { name: 'Giấy chứng nhận quyền sở hữu (Shophouse)', status: 'approved', number: 'Sở hữu lâu dài — Phân khu A & B (23 căn)', date: '2020' },
+      { name: 'Giấy chứng nhận quyền sở hữu (Mini Hotel)', status: 'approved', number: 'Sở hữu 50 năm — Phân khu C & D (18 căn)', date: '2020' },
+      { name: 'Giấy phép xây dựng', status: 'approved', number: 'Đã cấp — UBND tỉnh Lào Cai', date: '2019' },
+      { name: 'Quy hoạch 1/500', status: 'approved', number: 'Đã phê duyệt — Khu trung tâm thương mại Sa Pa', date: '2019' },
+    ],
+    progress: [
+      { phase: 'Khởi công xây dựng', date: '2019', status: 'done', description: 'Khởi công tổ hợp Sun Plaza Cầu Mây' },
+      { phase: 'Hoàn thiện mặt ngoài', date: 'Q4/2019', status: 'done', description: 'Kiến trúc Đông Dương hoàn thiện theo thiết kế CĐT' },
+      { phase: 'Bàn giao & cấp GCN', date: '2020', status: 'done', description: 'Bàn giao thô bên trong, hoàn thiện bên ngoài. GCN đã cấp.' },
+      { phase: 'Khai thác thương mại', date: '2020–nay', status: 'done', description: 'Cư dân tự hoàn thiện nội thất, khai thác kinh doanh' },
+      { phase: 'Thị trường thứ cấp', date: '2024–2026', status: 'ongoing', description: 'Giao dịch chuyển nhượng 270–355 triệu/m². Liên hệ để cập nhật giá.' },
+    ],
+    amenities: [
+      { name: 'Mặt tiền đường Cầu Mây (phố đi bộ)', icon: ShoppingBag, category: 'Thương mại' },
+      { name: 'View thung lũng Mường Hoa & núi Fansipan', icon: TreePine, category: 'Cảnh quan' },
+      { name: 'Khí hậu mát mẻ quanh năm 12–22°C', icon: Wind, category: 'Đặc quyền' },
+      { name: 'Tầng hầm (Phân khu A: 1–2 hầm)', icon: Car, category: 'Tiện ích' },
+      { name: 'Hệ thống cấp thoát nước, điện hoàn chỉnh', icon: Wifi, category: 'Hạ tầng' },
+      { name: 'Mái ngói, sơn hoàn thiện Đông Dương', icon: Home, category: 'Kiến trúc' },
+      { name: 'Cửa chính & cửa sổ hoàn thiện theo TK CĐT', icon: Shield, category: 'Bàn giao' },
+      { name: 'Bậc tam cấp & sân ngoài lát đá', icon: Building2, category: 'Bàn giao' },
+    ],
+    images: [
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=85',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&q=85',
+      'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1200&q=85',
+      'https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1200&q=85',
+      'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200&q=85',
+      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=85',
+    ],
+    videos: { intro: null, youtube: null },
+    virtualTour: { enabled: false, url: '' },
+    view360: { enabled: false, images: [] },
+    units_total: 41,
+    units_available: 0,
+    area_range: '72–120',
+    completion_date: '2020',
+    is_hot: false,
+    unitTypes: [
+      { name: 'Shophouse Phân khu A (có hầm)', area: '71.7–72.75 m² XD / đất 90–120 m²', bedrooms: 0, bathrooms: 0, price_from: 25000000000, rentalEst: 'Tự khai thác thương mại', floors: '4 tầng + 1–2 hầm', image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=85' },
+      { name: 'Shophouse Phân khu B (không hầm)', area: '72.75–78.69 m² XD / đất 90–120 m²', bedrooms: 0, bathrooms: 0, price_from: 23000000000, rentalEst: 'Tự khai thác thương mại', floors: '4 tầng', image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=85' },
+      { name: 'Mini Hotel Phân khu C', area: 'Khu C ~1.545 m² tổng', bedrooms: 0, bathrooms: 0, price_from: 18000000000, rentalEst: 'Khai thác lưu trú cao cấp', floors: '4 tầng nổi', image: 'https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&q=85' },
+      { name: 'Mini Hotel Phân khu D', area: 'Khu D ~1.992 m² tổng', bedrooms: 0, bathrooms: 0, price_from: 20000000000, rentalEst: 'Khai thác lưu trú cao cấp', floors: '4 tầng nổi', image: 'https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=600&q=85' },
+    ],
+    priceList: {
+      enabled: true,
+      lastUpdated: 'Thị trường thứ cấp 2025–2026',
+      items: [
+        { block: 'Phân khu A', floor: '4T + 1–2 hầm', type: 'Shophouse (lâu dài)', area: '71.7–72.75 m² XD', price: '270–355 triệu/m²', status: 'secondary' },
+        { block: 'Phân khu B', floor: '4T (không hầm)', type: 'Shophouse (lâu dài)', area: '72.75–78.69 m² XD', price: '270–355 triệu/m²', status: 'secondary' },
+        { block: 'Phân khu C', floor: '4 tầng', type: 'Mini Hotel (50 năm)', area: 'Khu C ~1.545 m²', price: 'Liên hệ thị trường thứ cấp', status: 'secondary' },
+        { block: 'Phân khu D', floor: '4 tầng', type: 'Mini Hotel (50 năm)', area: 'Khu D ~1.992 m²', price: 'Liên hệ thị trường thứ cấp', status: 'secondary' },
+      ]
+    },
+    paymentSchedule: [
+      { milestone: 'Thị trường thứ cấp', percentage: 100, description: 'Dự án đã bàn giao (2020). Giao dịch theo thỏa thuận giữa hai bên, thanh toán 1 lần hoặc theo thỏa thuận.' },
+      { milestone: 'Phí sang tên & chuyển nhượng', percentage: 0, description: 'Thuế chuyển nhượng BĐS ~2% giá trị hợp đồng. Lệ phí công chứng & sang tên theo quy định.' },
+    ],
+    masterPlan: {
+      image: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200&q=85',
+      zones: [
+        { name: 'Phân khu A — 11 Shophouse (4T + 1–2 hầm) — sở hữu lâu dài', units: 11 },
+        { name: 'Phân khu B — 12 Shophouse (4T, không hầm) — sở hữu lâu dài', units: 12 },
+        { name: 'Phân khu C — Mini Hotel (khu C ~1.545m²) — 50 năm', units: 9 },
+        { name: 'Phân khu D — Mini Hotel (khu D ~1.992m²) — 50 năm', units: 9 },
+      ]
+    },
+    source_url: 'https://sungroup.com.vn/du-an/sun-plaza-cau-may-149',
+    contact: { hotline: '1800 6636 (Ext:03)', email: 'info_spg@sungroup.com.vn' },
+  },
+    // Legacy slugs — redirect
   '1': { redirect: 'nobu-danang' },
   '2': { redirect: 'sun-symphony' },
+  'sun-plaza-cau-may-149': { redirect: 'sun-plaza-cau-may' },
 };
 
 
