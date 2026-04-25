@@ -82,7 +82,7 @@ export default function CareersPage() {
         setJobs(data);
       }
     } catch (err) {
-      console.error('Failed to fetch jobs:', err);
+      // silently handle: Failed to fetch jobs:
     } finally {
       setLoading(false);
     }

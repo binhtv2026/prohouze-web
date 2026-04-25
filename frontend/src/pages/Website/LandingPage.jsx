@@ -282,8 +282,8 @@ const TestimonialsSection = () => {
           const data = await res.json();
           if (data.length > 0) setTestimonials(data);
         }
-      } catch (err) {
-        console.error('Failed to fetch testimonials:', err);
+      } catch {
+        // silently use default testimonials
       }
     };
     fetchTestimonials();
@@ -473,8 +473,8 @@ const ProjectsSection = () => {
         } else {
           setProjects(sampleProjects);
         }
-      } catch (error) {
-        console.error('Error fetching projects:', error);
+      } catch {
+        // silently use sample projects as fallback
         setProjects(sampleProjects);
       }
       setLoading(false);
@@ -748,7 +748,7 @@ const ContactMapSection = () => {
                 <div className="w-10 h-10 rounded-full bg-sky-50 flex items-center justify-center flex-shrink-0 border border-sky-100">
                   <Mail className="w-5 h-5 text-[#316585]" />
                 </div>
-                <span>contact@prohouzing.com</span>
+                <span>contact@prohouze.com</span>
               </div>
             </div>
 
@@ -757,12 +757,15 @@ const ContactMapSection = () => {
                 value={formData.name}
                 onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                 placeholder="Họ và tên *"
+                aria-label="Họ và tên"
                 className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 h-12 outline-none focus:border-[#316585] focus:ring-1 focus:ring-[#316585]"
               />
               <Input
                 value={formData.phone}
                 onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                 placeholder="Số điện thoại *"
+                aria-label="Số điện thoại"
+                type="tel"
                 className="bg-slate-50 border-slate-200 text-slate-900 placeholder:text-slate-400 h-12 outline-none focus:border-[#316585] focus:ring-1 focus:ring-[#316585]"
               />
               <textarea
@@ -806,8 +809,8 @@ const PartnersSection = () => {
           const data = await res.json();
           if (data.length > 0) setPartners(data);
         }
-      } catch (err) {
-        console.error('Failed to fetch partners:', err);
+      } catch {
+        // silently use default partners
       }
     };
     fetchPartners();
@@ -944,7 +947,7 @@ const NewsSection = () => {
           if (data.length > 0) setNews(data);
         }
       } catch (err) {
-        console.error('Failed to fetch news:', err);
+        // silently handle: Failed to fetch news:
       }
     };
     fetchNews();
@@ -1213,7 +1216,7 @@ const LeadFormSection = () => {
         throw new Error('API error');
       }
     } catch (err) {
-      console.error('Lead submission error:', err);
+      // silently handle: Lead submission error:
       toast.error('Có lỗi xảy ra. Vui lòng thử lại!');
     } finally {
       setLoading(false);

@@ -368,7 +368,7 @@ export default function ProjectsListPage() {
           setProjects(MOCK_PROJECTS.map(transformApiProject));
         }
       } catch (error) {
-        console.error('Error fetching projects:', error);
+        // silently handle: Error fetching projects:
         setProjects(MOCK_PROJECTS.map(transformApiProject));
       }
       setLoading(false);

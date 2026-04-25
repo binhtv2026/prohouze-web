@@ -1209,7 +1209,7 @@ export default function ProjectLandingPage() {
           }
         }
       } catch (error) {
-        console.error('Error fetching project:', error);
+        // silently handle: Error fetching project:
         // Fallback to hardcoded data
         setProject(projectsData[projectId] || projectsData['1']);
       }

@@ -79,7 +79,7 @@ export default function NewsDetailPage() {
         setArticle(getSampleArticle(newsId));
       }
     } catch (err) {
-      console.error('Failed to fetch article:', err);
+      // silently handle: Failed to fetch article:
       setArticle(getSampleArticle(newsId));
     } finally {
       setLoading(false);
@@ -99,7 +99,7 @@ export default function NewsDetailPage() {
         setRelatedNews(SAMPLE_RELATED_NEWS);
       }
     } catch (err) {
-      console.error('Failed to fetch related news:', err);
+      // silently handle: Failed to fetch related news:
       setRelatedNews(SAMPLE_RELATED_NEWS);
     }
   }, [newsId]);
