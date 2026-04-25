@@ -299,6 +299,14 @@ export const WebsiteFooter = () => {
             <Link to="/privacy" className="hover:text-white transition-colors">Bảo mật</Link>
           </div>
         </div>
+
+        {/* Beta Notice */}
+        <div className="mt-6 text-center">
+          <span className="inline-flex items-center gap-2 text-xs text-white/30 border border-white/10 rounded-full px-4 py-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400/60 animate-pulse" />
+            Website đang trong giai đoạn ra mắt thử nghiệm — một số tính năng có thể chưa hoàn chỉnh
+          </span>
+        </div>
       </div>
     </footer>
   );

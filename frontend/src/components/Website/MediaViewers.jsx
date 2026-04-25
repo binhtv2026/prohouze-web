@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Pannellum } from 'pannellum-react';
+// pannellum-react loaded lazily to avoid breaking main bundle
+let Pannellum = null;
+try { Pannellum = require('pannellum-react').Pannellum; } catch { Pannellum = () => null; }
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { 
