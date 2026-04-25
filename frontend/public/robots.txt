@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /login
+Disallow: /app/
+
+Sitemap: https://prohouze.com/sitemap.xml

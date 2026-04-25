@@ -1,91 +1,70 @@
 <!doctype html>
 <html lang="vi">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#316585" />
-        
-        <!-- SEO Meta Tags -->
-        <title>ProHouze | Nhà Phát Triển & Phân Phối BĐS Hàng Đầu Việt Nam</title>
-        <meta name="description" content="ProHouze - Công ty phân phối bất động sản tốt nhất Đông Nam Á 2025. Trọn chữ Tín - Vẹn niềm Tin. 15+ năm kinh nghiệm, 200+ dự án, 50,000+ khách hàng." />
-        <meta name="keywords" content="ProHouze, bất động sản, BĐS, môi giới, phân phối, căn hộ, biệt thự, nhà phố, Việt Nam, TP.HCM, Hà Nội" />
-        <meta name="author" content="ProHouze" />
-        <meta name="robots" content="index, follow" />
-        
-        <!-- Open Graph / Facebook -->
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://prohouze.com/" />
-        <meta property="og:title" content="ProHouze | Nhà Phát Triển & Phân Phối BĐS Hàng Đầu Việt Nam" />
-        <meta property="og:description" content="Công ty phân phối bất động sản tốt nhất Đông Nam Á 2025. Trọn chữ Tín - Vẹn niềm Tin." />
-        <meta property="og:image" content="%PUBLIC_URL%/logo512.png" />
-        <meta property="og:locale" content="vi_VN" />
-        <meta property="og:locale:alternate" content="en_US" />
-        
-        <!-- Twitter -->
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://prohouze.com/" />
-        <meta property="twitter:title" content="ProHouze | Nhà Phát Triển & Phân Phối BĐS Hàng Đầu Việt Nam" />
-        <meta property="twitter:description" content="Công ty phân phối bất động sản tốt nhất Đông Nam Á 2025. Trọn chữ Tín - Vẹn niềm Tin." />
-        <meta property="twitter:image" content="%PUBLIC_URL%/logo512.png" />
-        
-        <!-- Canonical URL -->
-        <link rel="canonical" href="https://prohouze.com/" />
-        
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-        <!--
-        manifest.json provides metadata used when your web app is installed on a
-        user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-        -->
-        <!--
-        Notice the use of %PUBLIC_URL% in the tags above.
-        It will be replaced with the URL of the `public` folder during the build.
-        Only files inside the `public` folder can be referenced from the HTML.
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#316585" />
 
-        Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-        work correctly both with client-side routing and a non-root public URL.
-        Learn how to configure a non-root public URL by running `npm run build`.
-        -->
-        <title>ProHouze | Nhà Phát Triển & Phân Phối BĐS Hàng Đầu Việt Nam</title>
-    </head>
-    <body>
-        <noscript>You need to enable JavaScript to run this app.</noscript>
-        <!-- DEBUG: Catch pre-React JS errors (remove after fix) -->
-        <script>
-          window.__debug_errors = [];
-          window.onerror = function(msg, src, line, col, err) {
-            window.__debug_errors.push({msg, src, line, col, stack: err && err.stack});
-            var d = document.getElementById('root');
-            if (d) {
-              d.style.cssText = 'font-family:monospace;padding:24px;color:#b00;background:#fff;min-height:100vh';
-              d.innerHTML = '<h2>&#9888; JS Init Error (window.onerror)</h2>'
-                + '<p style="color:#666">Lỗi xảy ra trước khi React khởi động</p>'
-                + '<pre style="background:#fef2f2;padding:12px;border-radius:6px;overflow-x:auto">' + msg + '\n\n' + src + ':' + line + ':' + col + '\n\n' + (err && err.stack ? err.stack : '') + '</pre>';
-            }
-            return true;
-          };
-          window.addEventListener('unhandledrejection', function(evt) {
-            window.__debug_errors.push({type:'promise', reason: String(evt.reason)});
-            var d = document.getElementById('root');
-            if (d && d.innerHTML.trim() === '') {
-              d.style.cssText = 'font-family:monospace;padding:24px;color:#b00;background:#fff;min-height:100vh';
-              d.innerHTML = '<h2>&#9888; Promise Error</h2><pre style="background:#fff7ed;padding:12px;border-radius:6px">' + String(evt.reason) + '\n' + (evt.reason && evt.reason.stack ? evt.reason.stack : '') + '</pre>';
-            }
-          });
-        </script>
-        <div id="root"></div>
+    <!-- Primary SEO -->
+    <title>ProHouze | Nhà Phát Triển &amp; Phân Phối BĐS Hàng Đầu Việt Nam</title>
+    <meta name="description" content="ProHouze - Công ty phân phối bất động sản tốt nhất Đông Nam Á 2025. Trọn chữ Tín - Vẹn niềm Tin. 15+ năm kinh nghiệm, 200+ dự án, 50,000+ khách hàng." />
+    <meta name="keywords" content="ProHouze, bất động sản, BĐS, môi giới, phân phối, căn hộ, biệt thự, nhà phố, Việt Nam, TP.HCM, Hà Nội" />
+    <meta name="author" content="ProHouze" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://prohouze.com/" />
 
-        <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://prohouze.com/" />
+    <meta property="og:title" content="ProHouze | Nhà Phát Triển &amp; Phân Phối BĐS Hàng Đầu Việt Nam" />
+    <meta property="og:description" content="Công ty phân phối bất động sản tốt nhất Đông Nam Á 2025. Trọn chữ Tín - Vẹn niềm Tin." />
+    <meta property="og:image" content="https://prohouze.com/logo512.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:site_name" content="ProHouze" />
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://prohouze.com/" />
+    <meta name="twitter:title" content="ProHouze | Nhà Phát Triển &amp; Phân Phối BĐS Hàng Đầu Việt Nam" />
+    <meta name="twitter:description" content="Công ty phân phối bất động sản tốt nhất Đông Nam Á 2025. Trọn chữ Tín - Vẹn niềm Tin." />
+    <meta name="twitter:image" content="https://prohouze.com/logo512.png" />
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-    </body>
+    <!-- Icons -->
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <!-- Fonts — preconnect first for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+      "name": "ProHouze",
+      "url": "https://prohouze.com",
+      "logo": "https://prohouze.com/logo.png",
+      "description": "Công ty phân phối bất động sản tốt nhất Đông Nam Á 2025",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "VN",
+        "addressLocality": "TP. Hồ Chí Minh"
+      },
+      "sameAs": [
+        "https://prohouze.com"
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <noscript>Vui lòng bật JavaScript để sử dụng ứng dụng này.</noscript>
+    <div id="root"></div>
+  </body>
 </html>
