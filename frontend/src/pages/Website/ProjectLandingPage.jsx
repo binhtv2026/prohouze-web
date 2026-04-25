@@ -1124,15 +1124,9 @@ const ProgressSection = ({ project }) => {
 const LegalSection = ({ project }) => {
   const { isDark } = useTheme();
   
-  // Default legal data if not available from API
-  const defaultLegal = [
-    { title: 'Quyết định phê duyệt quy hoạch', number: 'Số 1234/QĐ-UBND', date: '15/03/2023', status: 'approved', description: 'Quyết định phê duyệt quy hoạch chi tiết tỷ lệ 1/500' },
-    { title: 'Giấy phép xây dựng', number: 'Số 567/GPXD', date: '20/06/2023', status: 'approved', description: 'Giấy phép xây dựng công trình' },
-    { title: 'Giấy chứng nhận QSDĐ', number: 'Số 789/GCN', date: '01/01/2023', status: 'approved', description: 'Giấy chứng nhận quyền sử dụng đất' },
-    { title: 'Bảo lãnh ngân hàng', number: 'Vietcombank', date: '25/07/2023', status: 'approved', description: 'Ngân hàng bảo lãnh cho người mua nhà' },
-  ];
-  
-  const legal = project.legal || defaultLegal;
+  // Chỉ dùng pháp lý thực từ project data — không dùng mock
+  const legal = project.legal || [];
+
   
   const statusIcons = {
     approved: { icon: CheckCircle, color: 'text-green-500', label: 'Đã phê duyệt' },
@@ -1151,8 +1145,16 @@ const LegalSection = ({ project }) => {
           </p>
         </div>
         
+        {legal.length === 0 ? (
+          <div className={`text-center py-12 rounded-xl ${isDark ? 'bg-slate-800' : 'bg-white'}`}>
+            <FileText className="w-12 h-12 mx-auto mb-3 text-slate-300" />
+            <p className={`font-medium ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Hồ sơ pháp lý đang được cập nhật</p>
+            <p className={`text-sm mt-1 ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Liên hệ hotline để được cung cấp đầy đủ hồ sơ pháp lý dự án</p>
+          </div>
+        ) : (
         <div className="grid md:grid-cols-2 gap-6">
           {legal.map((item, index) => {
+
             const StatusIcon = statusIcons[item.status]?.icon || CheckCircle;
             const statusColor = statusIcons[item.status]?.color || 'text-green-500';
             const statusLabel = statusIcons[item.status]?.label || 'Đã phê duyệt';
@@ -1188,8 +1190,10 @@ const LegalSection = ({ project }) => {
             );
           })}
         </div>
+        )}
 
         {/* Legal certification banner */}
+
         <div className={`mt-12 p-8 rounded-2xl ${isDark ? 'bg-gradient-to-r from-slate-800 to-slate-700' : 'bg-gradient-to-r from-[#316585]/10 to-[#316585]/5'}`}>
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-4">
