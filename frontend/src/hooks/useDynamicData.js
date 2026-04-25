@@ -8,6 +8,7 @@
 
 import { useState, useEffect, useCallback, useMemo, createContext, useContext } from 'react';
 import api from '@/lib/api';
+import { useAuth } from '@/contexts/AuthContext';
 
 // ============================================
 // CACHE CONFIGURATION
@@ -27,15 +28,24 @@ const MasterDataContext = createContext(null);
 /**
  * Provider component for master data context
  * Wraps the app to provide access to all master data
+ * Only fetches when user is authenticated to avoid console errors on public pages
  */
 export function MasterDataProvider({ children }) {
   const [masterData, setMasterData] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  
+  // Only fetch when authenticated — prevents console errors on public pages
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
+    if (!isAuthenticated) {
+      setLoading(false);
+      return;
+    }
     loadAllMasterData();
-  }, []);
+  }, [isAuthenticated]);
+
 
   const loadAllMasterData = async () => {
     try {
@@ -47,6 +57,7 @@ export function MasterDataProvider({ children }) {
         return;
       }
 
+      setLoading(true);
       // Note: api instance already has /api prefix in baseURL
       const response = await api.get('/config/master-data');
       setMasterData(response.data);
@@ -59,7 +70,7 @@ export function MasterDataProvider({ children }) {
       
       setLoading(false);
     } catch (err) {
-      console.error('Failed to load master data:', err);
+      // Silently fail — master data is optional for CRM features
       setError(err);
       setLoading(false);
     }
@@ -78,6 +89,7 @@ export function MasterDataProvider({ children }) {
     </MasterDataContext.Provider>
   );
 }
+
 
 /**
  * Hook to access the master data context
