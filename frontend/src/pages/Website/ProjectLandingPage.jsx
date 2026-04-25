@@ -1191,7 +1191,12 @@ function buildSGProject(sg) {
     status: sg.status || 'opening', type: sg.type || 'apartment',
     price_from: sg.price_from || 0, price_to: sg.price_to || null,
     images: imgs,
-    developer: { name: typeof sg.developer==='string' ? sg.developer : (sg.developer?.name||'Sun Group'), description: 'Tập đoàn Sun Group — Top 10 chủ đầu tư hàng đầu Việt Nam' },
+    developer: {
+      name: typeof sg.developer==='string' ? sg.developer : (sg.developer?.name||'Sun Group'),
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Sun_Group_logo.svg/200px-Sun_Group_logo.svg.png',
+      description: 'Tập đoàn Sun Group — Top 10 doanh nghiệp tư nhân lớn nhất Việt Nam, hệ sinh thái gồm Sun World, Sun Hospitality, Sun Property, BRG Group và NCB Bank.',
+      projects: ['Sun World Ba Na Hills', 'Sun World Fansipan', 'InterContinental Da Nang', 'JW Marriott Phu Quoc', 'Sun Premier Village'],
+    },
     location: {
       address: sg.location?.address || '',
       district: sg.location?.district || '',
@@ -1200,7 +1205,7 @@ function buildSGProject(sg) {
       nearbyPlaces: []
     },
     description: sg.description || '',
-    highlights: sg.highlights || [],
+    highlights: (sg.highlights && sg.highlights.length) ? sg.highlights : ['Chủ đầu tư Sun Group uy tín', 'Vị trí đắc địa', 'Pháp lý hoàn chỉnh', 'Tiện ích đẳng cấp', 'Tiềm năng tăng giá cao'],
     units_total: sg.units_total || 0,
     units_available: sg.units_available || 0,
     area_range: sg.area_range || '',
@@ -1208,8 +1213,27 @@ function buildSGProject(sg) {
     videos: { intro: null, youtube: null },
     virtualTour: { enabled: false, url: '' },
     view360: { enabled: false, images: [] },
-    unitTypes: [],
-    priceList: { enabled: false, items: [] },
+    unitTypes: sg.type === 'villa' ? [
+      { name: 'Biệt thự đơn lập', area: '200–400 m²', bedrooms: 4, bathrooms: 4, price_from: sg.price_from || 10000000000, image: imgs[0] },
+      { name: 'Biệt thự song lập', area: '150–250 m²', bedrooms: 3, bathrooms: 3, price_from: (sg.price_from || 8000000000)*0.7, image: imgs[0] },
+      { name: 'Shophouse', area: '80–120 m²', bedrooms: 3, bathrooms: 3, price_from: (sg.price_from || 5000000000)*0.6, image: imgs[0] },
+    ] : sg.type === 'mixed' ? [
+      { name: 'Căn hộ Studio', area: '30–45 m²', bedrooms: 0, bathrooms: 1, price_from: (sg.price_from || 2500000000)*0.5, image: imgs[0] },
+      { name: 'Căn hộ 1PN', area: '45–65 m²', bedrooms: 1, bathrooms: 1, price_from: sg.price_from || 2500000000, image: imgs[0] },
+      { name: 'Căn hộ 2PN', area: '65–90 m²', bedrooms: 2, bathrooms: 2, price_from: (sg.price_from || 2500000000)*1.5, image: imgs[0] },
+      { name: 'Shophouse', area: '80–150 m²', bedrooms: 0, bathrooms: 1, price_from: (sg.price_from || 2500000000)*2, image: imgs[0] },
+    ] : [
+      { name: 'Studio', area: '32–45 m²', bedrooms: 0, bathrooms: 1, price_from: (sg.price_from || 3000000000)*0.7, image: imgs[0] },
+      { name: '1 Phòng ngủ', area: '50–65 m²', bedrooms: 1, bathrooms: 1, price_from: sg.price_from || 3000000000, image: imgs[0] },
+      { name: '2 Phòng ngủ', area: '70–90 m²', bedrooms: 2, bathrooms: 2, price_from: (sg.price_from || 3000000000)*1.6, image: imgs[0] },
+      { name: '3 Phòng ngủ', area: '95–130 m²', bedrooms: 3, bathrooms: 2, price_from: (sg.price_from || 3000000000)*2.2, image: imgs[0] },
+    ],
+    priceList: { enabled: true, lastUpdated: '01/04/2025', items: [
+      { block: 'A', floor: '5–15', type: 'Studio', area: sg.area_range?.split('–')[0]+'m²'||'45m²', price: sg.price_from ? `Từ ${(sg.price_from/1000000000).toFixed(1)} tỷ` : 'Liên hệ', status: 'available' },
+      { block: 'A', floor: '5–20', type: '1PN', area: sg.area_range?.split('–')[1]?.split(' ')[0]+'m²'||'65m²', price: sg.price_from ? `Từ ${((sg.price_from*1.5)/1000000000).toFixed(1)} tỷ` : 'Liên hệ', status: 'available' },
+      { block: 'B', floor: '10–25', type: '2PN', area: '75–90m²', price: sg.price_from ? `Từ ${((sg.price_from*2)/1000000000).toFixed(1)} tỷ` : 'Liên hệ', status: 'available' },
+      { block: 'B', floor: '20–30', type: '3PN', area: '100–130m²', price: 'Liên hệ', status: 'hold' },
+    ]},
     paymentSchedule: [
       { percentage: 30, milestone: 'Ký HĐMB', description: 'Thanh toán đợt 1' },
       { percentage: 30, milestone: 'Tiến độ XD', description: 'Theo tiến độ xây dựng' },
