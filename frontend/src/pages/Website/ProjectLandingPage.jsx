@@ -21,9 +21,7 @@ import { WebsiteHeader, WebsiteFooter } from './SharedComponents';
 import { useTheme } from '@/contexts/ThemeContext';
 import { toast } from 'sonner';
 import { ALL_SUN_GROUP_PROJECTS as SUN_GROUP_PROJECTS } from '@/data/sunGroupProjects';
-
-const API_URL = process.env.REACT_APP_BACKEND_URL;
-const API_AVAILABLE = API_URL && API_URL.startsWith('https');
+import { resolveProject } from '@/services/projectService';
 
 // ─── DỰ ÁN THẬT — CHỈ 2 DỰ ÁN ĐƯỢC PHÉP HIỂN THỊ ───────────────────────────
 const projectsData = {
@@ -1283,48 +1281,43 @@ export default function ProjectLandingPage() {
   useEffect(() => {
     const fetchProject = async () => {
       setLoading(true);
-      // Skip HTTP API on HTTPS site to avoid Mixed Content errors
-      if (!API_AVAILABLE) {
-        // Check rich projectsData FIRST (Nobu, Sun Symphony have full data)
-        if (projectsData[projectId]) {
-          setProject(projectsData[projectId]);
-          setLoading(false); return;
-        }
-        // Then search SUN_GROUP_PROJECTS by slug or id
-        const sg = SUN_GROUP_PROJECTS.find(p => p.slug === projectId || p.id === projectId);
-        if (sg) { setProject(buildSGProject(sg)); setLoading(false); return; }
-        // Last resort fallback
-        setProject(projectsData['nobu-danang']);
-        setLoading(false); return;
-      }
       try {
-        const response = await fetch(`${API_URL}/api/website/projects-detail/${projectId}`);
-        if (response.ok) {
-          const apiProject = await response.json();
-          setProject(transformApiProject(apiProject));
+        // Resolve theo thứ tự ưu tiên:
+        // 1. Redirect slugs cũ (1, 2)
+        const redirectEntry = projectsData[projectId];
+        if (redirectEntry?.redirect) {
+          window.location.replace(`/projects/${redirectEntry.redirect}`);
+          return;
+        }
+
+        // 2. Local premium data (Nobu, Sun Symphony) → ưu tiên rich data
+        const localData = projectsData[projectId] || null;
+
+        // 3. Thử API qua Vercel proxy (/api/projects/slug/:slug)
+        //    Nếu API có data → dùng API (source of truth)
+        //    Nếu API 404 hoặc lỗi → dùng local
+        const { project: resolved, source } = await resolveProject(projectId, localData);
+
+        // 4. Nếu API trả về → transform field names
+        if (source === 'api') {
+          setProject(transformApiProject(resolved));
         } else {
-          // Try to find in projects list
-          const allProjectsRes = await fetch(`${API_URL}/api/website/projects-list`);
-          if (allProjectsRes.ok) {
-            const allProjects = await allProjectsRes.json();
-            const foundBySlug = allProjects.find(p => p.slug === projectId || p.id === projectId);
-            if (foundBySlug) {
-              setProject(transformApiProject(foundBySlug));
-            } else {
-              // Fallback to hardcoded data
-              setProject(projectsData[projectId] || projectsData['1']);
-            }
+          // 5. Local data đã đúng format → dùng thẳng
+          if (resolved) {
+            setProject(resolved);
           } else {
-            setProject(projectsData[projectId] || projectsData['1']);
+            // 6. Thử SUN_GROUP_PROJECTS (33 dự án)
+            const sg = SUN_GROUP_PROJECTS.find(p => p.slug === projectId || p.id === projectId);
+            setProject(sg ? buildSGProject(sg) : projectsData['nobu-danang']);
           }
         }
       } catch {
-        // Fallback: check SUN_GROUP_PROJECTS by slug, then hardcoded
+        // Final fallback → tránh màn hình trắng
         const sg = SUN_GROUP_PROJECTS.find(p => p.slug === projectId || p.id === projectId);
-        if (sg) setProject(buildSGProject(sg));
-        else setProject(projectsData[projectId] || projectsData['1']);
+        setProject(sg ? buildSGProject(sg) : (projectsData[projectId] || projectsData['nobu-danang']));
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchProject();

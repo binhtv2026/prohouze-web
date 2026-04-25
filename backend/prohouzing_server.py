@@ -108,22 +108,23 @@ for module_path, attr_name, prefix in _module_routers:
 
 # Also mount legacy additional routers from top-level files
 _legacy_routers = [
-    ("ai_features_router",  "router", "/api/ai"),
-    ("sales_api",           "router", "/api/sales/ops"),
-    ("hrm_advanced_api",    "router", "/api/hrm"),
-    ("finance_api",         "router", "/api/finance/v1"),
-    ("hr_phase4_router",    "router", "/api/hr/phase4"),
-    ("admin_content_api",   "router", "/api/admin/content"),
-    ("admin_project_api",   "router", "/api/admin/projects"),
-    ("ai_sales_api",        "router", "/api/ai/sales"),
-    ("config_api",          "router", "/api/config"),
-    ("task_api",            "router", "/api/tasks"),
-    ("website_api",         "router", "/api/website"),
-    ("upload_api",          "router", "/api/upload"),
-    ("newsletter_api",      "router", "/api/newsletter"),
-    ("booking_engine",      "router", "/api/bookings"),
-    ("ai_copilot_api",      "router", "/api/ai/copilot"),
-    ("manager_dashboard",   "router", "/api/manager"),  # Fix 3: mount manager dashboard
+    ("ai_features_router",   "router",                "/api/ai"),
+    ("sales_api",            "router",                "/api/sales/ops"),
+    ("hrm_advanced_api",     "router",                "/api/hrm"),
+    ("finance_api",          "router",                "/api/finance/v1"),
+    ("hr_phase4_router",     "router",                "/api/hr/phase4"),
+    ("admin_content_api",    "router",                "/api/admin/content"),
+    ("admin_project_api",    "admin_project_router",  "/api/admin/projects"),
+    ("public_project_api",   "public_project_router", "/api/projects"),
+    ("ai_sales_api",         "router",                "/api/ai/sales"),
+    ("config_api",           "router",                "/api/config"),
+    ("task_api",             "router",                "/api/tasks"),
+    ("website_api",          "router",                "/api/website"),
+    ("upload_api",           "router",                "/api/upload"),
+    ("newsletter_api",       "router",                "/api/newsletter"),
+    ("booking_engine",       "router",                "/api/bookings"),
+    ("ai_copilot_api",       "router",                "/api/ai/copilot"),
+    ("manager_dashboard",    "router",                "/api/manager"),
 ]
 
 for module_path, attr_name, prefix in _legacy_routers:
