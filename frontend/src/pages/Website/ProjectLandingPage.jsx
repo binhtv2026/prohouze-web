@@ -23,6 +23,7 @@ import { toast } from 'sonner';
 import { ALL_SUN_GROUP_PROJECTS as SUN_GROUP_PROJECTS } from '@/data/sunGroupProjects';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
+const API_AVAILABLE = API_URL && API_URL.startsWith('https');
 
 // ─── DỰ ÁN THẬT — CHỈ 2 DỰ ÁN ĐƯỢC PHÉP HIỂN THỊ ───────────────────────────
 const projectsData = {
@@ -1204,8 +1205,9 @@ function buildSGProject(sg) {
     units_available: sg.units_available || 0,
     area_range: sg.area_range || '',
     completion_date: sg.completion_date || '',
-    virtualTour: { enabled: false },
-    view360: { enabled: false },
+    videos: { intro: null, youtube: null },
+    virtualTour: { enabled: false, url: '' },
+    view360: { enabled: false, images: [] },
     unitTypes: [],
     priceList: { enabled: false, items: [] },
     paymentSchedule: [
@@ -1236,8 +1238,14 @@ export default function ProjectLandingPage() {
   useEffect(() => {
     const fetchProject = async () => {
       setLoading(true);
+      // Skip HTTP API on HTTPS site to avoid Mixed Content errors
+      if (!API_AVAILABLE) {
+        const sg = SUN_GROUP_PROJECTS.find(p => p.slug === projectId || p.id === projectId);
+        if (sg) { setProject(buildSGProject(sg)); setLoading(false); return; }
+        setProject(projectsData[projectId] || projectsData['1']);
+        setLoading(false); return;
+      }
       try {
-        // First try to fetch from public API using project ID or slug
         const response = await fetch(`${API_URL}/api/website/projects-detail/${projectId}`);
         if (response.ok) {
           const apiProject = await response.json();
