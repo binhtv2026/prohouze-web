@@ -23,7 +23,7 @@ import {
   Warehouse,
 } from 'lucide-react';
 import { WebsiteHeader, WebsiteFooter } from './SharedComponents';
-import { SUN_GROUP_PROJECTS } from '@/data/sunGroupProjects';
+import { ALL_SUN_GROUP_PROJECTS as SUN_GROUP_PROJECTS } from '@/data/sunGroupProjects';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 const API_AVAILABLE = API_URL && API_URL.startsWith('https');

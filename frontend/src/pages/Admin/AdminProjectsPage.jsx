@@ -14,7 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useAuth } from '@/contexts/AuthContext';
 import api from '@/lib/api';
-import { SUN_GROUP_PROJECTS, SUN_GROUP_STATS } from '@/data/sunGroupProjects';
+import { ALL_SUN_GROUP_PROJECTS as SUN_GROUP_PROJECTS, SUN_GROUP_STATS } from '@/data/sunGroupProjects';
 import { toast } from 'sonner';
 import {
   Building2, MapPin, DollarSign, Plus, Pencil, Trash2, Eye, ExternalLink,

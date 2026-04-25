@@ -15,7 +15,7 @@ import { toast } from 'sonner';
 import { WebsiteHeader, WebsiteFooter } from './SharedComponents';
 import { useTheme } from '@/contexts/ThemeContext';
 import AIChatWidget from '@/components/AIChatWidget';
-import { SUN_GROUP_PROJECTS } from '@/data/sunGroupProjects';
+import { ALL_SUN_GROUP_PROJECTS as SUN_GROUP_PROJECTS } from '@/data/sunGroupProjects';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 // Chỉ gọi API nếu đang dùng HTTPS (tránh Mixed Content errors trên production)

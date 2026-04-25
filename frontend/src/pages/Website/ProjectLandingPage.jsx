@@ -20,6 +20,7 @@ import {
 import { WebsiteHeader, WebsiteFooter } from './SharedComponents';
 import { useTheme } from '@/contexts/ThemeContext';
 import { toast } from 'sonner';
+import { ALL_SUN_GROUP_PROJECTS as SUN_GROUP_PROJECTS } from '@/data/sunGroupProjects';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -1177,6 +1178,55 @@ const transformApiProject = (apiProject) => {
   };
 };
 
+
+// Build full project object from SUN_GROUP_PROJECTS simple data
+function buildSGProject(sg) {
+  const imgs = sg.images && sg.images.length ? sg.images : [
+    'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200'
+  ];
+  return {
+    id: sg.id, slug: sg.slug, name: sg.name,
+    slogan: sg.description?.slice(0,80) || sg.name,
+    status: sg.status || 'opening', type: sg.type || 'apartment',
+    price_from: sg.price_from || 0, price_to: sg.price_to || null,
+    images: imgs,
+    developer: { name: typeof sg.developer==='string' ? sg.developer : (sg.developer?.name||'Sun Group'), description: 'Tập đoàn Sun Group — Top 10 chủ đầu tư hàng đầu Việt Nam' },
+    location: {
+      address: sg.location?.address || '',
+      district: sg.location?.district || '',
+      city: sg.location?.city || '',
+      mapUrl: '',
+      nearbyPlaces: []
+    },
+    description: sg.description || '',
+    highlights: sg.highlights || [],
+    units_total: sg.units_total || 0,
+    units_available: sg.units_available || 0,
+    area_range: sg.area_range || '',
+    completion_date: sg.completion_date || '',
+    virtualTour: { enabled: false },
+    view360: { enabled: false },
+    unitTypes: [],
+    priceList: { enabled: false, items: [] },
+    paymentSchedule: [
+      { percentage: 30, milestone: 'Ký HĐMB', description: 'Thanh toán đợt 1' },
+      { percentage: 30, milestone: 'Tiến độ XD', description: 'Theo tiến độ xây dựng' },
+      { percentage: 30, milestone: 'Nhận bàn giao', description: 'Khi nhận nhà' },
+      { percentage: 10, milestone: 'Sổ hồng', description: 'Khi có sổ hồng' },
+    ],
+    amenities: [
+      { name: 'Hồ bơi', category: 'Thể thao', icon: Waves },
+      { name: 'Phòng gym', category: 'Thể thao', icon: Dumbbell },
+      { name: 'Bãi đỗ xe', category: 'Tiện ích', icon: Car },
+      { name: 'Công viên', category: 'Tiện ích', icon: TreePine },
+      { name: 'Trung tâm TM', category: 'Dịch vụ', icon: ShoppingBag },
+      { name: 'An ninh 24/7', category: 'An ninh', icon: Shield },
+    ],
+    masterPlan: { image: imgs[0], zones: [] },
+    is_hot: sg.is_hot || false,
+  };
+}
+
 // ==================== MAIN COMPONENT ====================
 export default function ProjectLandingPage() {
   const { projectId } = useParams();
@@ -1208,10 +1258,11 @@ export default function ProjectLandingPage() {
             setProject(projectsData[projectId] || projectsData['1']);
           }
         }
-      } catch (error) {
-        // silently handle: Error fetching project:
-        // Fallback to hardcoded data
-        setProject(projectsData[projectId] || projectsData['1']);
+      } catch {
+        // Fallback: check SUN_GROUP_PROJECTS by slug, then hardcoded
+        const sg = SUN_GROUP_PROJECTS.find(p => p.slug === projectId || p.id === projectId);
+        if (sg) setProject(buildSGProject(sg));
+        else setProject(projectsData[projectId] || projectsData['1']);
       }
       setLoading(false);
     };
